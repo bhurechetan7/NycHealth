@@ -111,7 +111,7 @@ public class ClinicServiceTest {
     @Order(8)
     public void test_UpdateClinicByIdServicewithException () {
         int id =-1;
-        Clinic c = new Clinic(-1, "MD.Anderson", "novi", "ps@gmail.com", "313-539-6242","closed","2022-9-22","2022-10-13");
+        Clinic c = new Clinic(-1, "MD.Anderson", "novi", "ps@gmail.com", "313-539-6242","open","2022-9-22","2022-10-13");
         when(clinicRepo.findById(id)).thenThrow(NoResultException.class);
         //Clinic clinic= serviceImple.updateClinicRecord(c,id);
 

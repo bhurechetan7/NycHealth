@@ -13,7 +13,8 @@ import java.util.Optional;
 
 
 @Service
-public class ServiceImpl {
+public class ServiceImpl implements ClinicServices {
+
     @Autowired
     private ClinicRepo clinicRepo;
 
@@ -22,36 +23,13 @@ public class ServiceImpl {
         return clinicRepo.findAll();
     }
 
-
     //Post the clinic Information
     public Clinic registerNewClinic(Clinic newClinic) {
         return clinicRepo.save(newClinic);
     }
 
-    //Update Clinic Information
-   /* public Optional<Clinic> updateClinic(Integer id, Clinic newClinic) {
-        if (id == null) {
-            System.out.println(" Clinic id is required ");
-        } else {
-            return Optional.of(clinicRepo.findById(id)
-                    .map(n -> {
-                        n.setName(newClinic.getName());
-                        // n.setAddress(newClinic.getAddress());
-                        // n.setEmail(newClinic.setEmail());
-                        // n.setPhoneNumber(newClinic.setPhoneNumber());
-                        return clinicRepo.save(n);
-
-                    }).orElseGet(() -> {
-                        return clinicRepo.save(newClinic);
-                    }));
-        }
-        return null;
-    }*/
-
     //New Update Request
-
-     @PutMapping("/updateClinic/{id}")
-     public Clinic updateClinicRecord(@RequestBody Clinic newClinic, @PathVariable Integer id){
+     public Clinic updateClinicRecord( Clinic newClinic,Integer id){
 
                  return clinicRepo.findById(id)
                          .map(clinic -> {
@@ -62,9 +40,7 @@ public class ServiceImpl {
                              return clinicRepo.save(clinic);
                          })
                          .orElseGet(()-> clinicRepo.save(newClinic));
-
      }
-
 
     //Delete Clinic information By Id
     public void deleteClinic(Integer id) {
@@ -75,22 +51,7 @@ public class ServiceImpl {
     public Clinic getClinicById(Integer id) {
 
            return clinicRepo.findById(id)
-                   .orElseThrow(()-> new ClinicNotFoundException("No Clinic with id " + " id " + "is found in Record"))
-
-
-    // Clinic c = clinicRepo.getById(id);
-     /*if (c == null) {
-     throw new ClinicNotFoundException("Clinic id is not found ");
-      }
-     return c*/
-            ;
-       /* for (Clinic c : getAllClinic().toArray(new Clinic[0])) {
-            if (c.getId().equals(id)) {
-                  return c;
-            }
-        }
-       return null;
-    }*/
+                   .orElseThrow(()-> new ClinicNotFoundException("No Clinic with id " + " id " + "is found in Record"));
 
     }
 }
